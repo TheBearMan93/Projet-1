@@ -1,0 +1,261 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title id="title">Roadtrip through the 50 US states</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="Control.MiniMap.min.js"></script>
+    <link rel="stylesheet" href="Control.MiniMap.min.css" />
+    <link rel="stylesheet" href="slider.css" />
+    <script src="itinéraire.js"></script>
+  </head>
+  <body>
+
+<!-- Fenêtre Popup info -->
+    <div id="boxes">
+      <div style="top: 199.5px; left: 551.5px; display: none;" id="dialog" class="window">
+        <b>Roadtrip through the US |</b>
+        <a href="#" class="close">Close</a>
+        <p><font size="3" face="verdana">
+          The United States is one of the most distinct and fascinating collection of experiences you’ll ever come across. With cultures gathered from the far corners of the world, there’s no place on earth with quite the same variety of art, music, and human stories. And the vast landscape is just as diverse and awe-inspiring as the people you’ll meet.
+        <br><br>So if you’re ready for the ultimate U.S. road trip, enjoy here my interactive map presenting 50 stops that will take you on a round-trip route accross all 48 contiguous states.
+        <br><br>This trip allows you to stops at some of the majors National sites (parks, monuments, etc.) in each state. This path minimize the amount of time spent driving and maximize the time spent to enjoy the landmarks. The trip itselft would likely take 2-3 months.
+        <br><br>It is, of course, possible to visit other National sites or any other place between two destinations. This map only shows the best way to discover America's history in the most efficient way.
+        <br><br><center><b>Enjoy the ride!</b></center>
+        <center><img height="70px" width="70px" src="images/Van.png"></center>
+    </font></p>
+      </div>
+  <!-- MASQUE -->
+      <div style="width: 1478px; height: 602px; display: none; opacity: 0.8;" id="mask"></div>
+    </div>
+
+<!-- Sidebar -->
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <ul class="mainmenu">
+            <li><a><img src="drapeaux/Alabama.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Alabama</a>
+              <ul class="submenu">
+                <li><a id="AL" onclick="closeNav()">USS Alabama</a></li>
+              </ul>
+            <li><a onclick="opensubmenu"><img src="drapeaux/Arizona.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Arizona</a>
+              <ul class="submenu">
+                <li><a id="AZ" onclick="closeNav()">Grand Canyon</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Arkansas.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Arkansas</a>
+              <ul class="submenu">
+                <li><a id="AR" onclick="closeNav()">Toltec Mounds</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Californie.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />California</a>
+              <ul class="submenu">
+                <li><a id="CA1" onclick="closeNav()">San Francisco Cable Cars</a></li>
+                <li><a id="CA2" onclick="closeNav()">San Andreas Fault</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Colorado.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Colorado</a>
+              <ul class="submenu">
+                <li><a id="CO" onclick="closeNav()">Pike Peaks</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Connecticut.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Connecticut</a>
+              <ul class="submenu">
+                <li><a id="CT" onclick="closeNav()">The Mark Twain House and Museum</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Delaware.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Delaware</a>
+              <ul class="submenu">
+                <li><a id="DE" onclick="closeNav()">New Castle Historic District</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Floride.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Florida</a>
+              <ul class="submenu">
+                <li><a id="FL" onclick="closeNav()">Cape Canaveral Air Force Station</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Georgie.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Géorgia</a>
+              <ul class="submenu">
+                <li><a id="GA" onclick="closeNav()">Okefenokee Swamp Park</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Idaho.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Idaho</a>
+              <ul class="submenu">
+                <li><a id="ID" onclick="closeNav()">Craters of the Moon</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Illinois.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Illinois</a>
+              <ul class="submenu">
+                <li><a id="IL" onclick="closeNav()">Abraham Lincoln's Home</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Indiana.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Indiana</a>
+              <ul class="submenu">
+                <li><a id="IN" onclick="closeNav()">West Baden Springs</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Iowa.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Iowa</a>
+              <ul class="submenu">
+                <li><a id="IA" onclick="closeNav()">Terrace Hill</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Kansas.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Kansas</a>
+              <ul class="submenu">
+                <li><a id="KS" onclick="closeNav()">C.W. Parker Carousel Museum</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Kentucky.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Kentucky</a>
+              <ul class="submenu">
+                <li><a id="KY" onclick="closeNav()">Mammoth Cave National Park</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Louisiane.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Louisiana</a>
+              <ul class="submenu">
+                <li><a id="LA" onclick="closeNav()">French Quarters</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Maine.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Maine</a>
+              <ul class="submenu">
+                <li><a id="ME" onclick="closeNav()">Acadia National Forest</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Maryland.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Maryland</a>
+              <ul class="submenu">
+                <li><a id="MD" onclick="closeNav()">Colonial Annapolis Historic District</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Massachusetts.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Massachusetts</a>
+              <ul class="submenu">
+                <li><a id="MA" onclick="closeNav()">USS Constitution</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Michigan.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Michigan</a>
+              <ul class="submenu">
+                <li><a id="MI" onclick="closeNav()">Fox Theater</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Minnesota.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Minnesota</a>
+              <ul class="submenu">
+                <li><a id="MN" onclick="closeNav()">Fort Snelling</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Mississippi.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Mississippi</a>
+              <ul class="submenu">
+                <li><a id="MS" onclick="closeNav()">Vicksburg National Military Park</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Missouri.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Missouri</a>
+              <ul class="submenu">
+                <li><a id="MO" onclick="closeNav()">Gateway Arch</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Montana.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Montana</a>
+              <ul class="submenu">
+                <li><a id="MT" onclick="closeNav()">Glacier National Park</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Nebraska.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Nebraska</a>
+              <ul class="submenu">
+                <li><a id="NE" onclick="closeNav()">Ashfall Fossil Beds</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Nevada.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Nevada</a>
+              <ul class="submenu">
+                <li><a id="NV" onclick="closeNav()">Hoover Dam</a></li>
+              </ul>
+            <li><a><img src="drapeaux/New Hampshire.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />New Hampshire</a>
+              <ul class="submenu">
+                <li><a id="NH" onclick="closeNav()">Mount Washington</a></li>
+              </ul>
+            <li><a><img src="drapeaux/New Jersey.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />New Jersey</a>
+              <ul class="submenu">
+                <li><a id="NJ" onclick="closeNav()">Cape May Historic District</a></li>
+              </ul>
+              <li><a><img src="drapeaux/Nouveau Mexique.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />New Mexico</a>
+                <ul class="submenu">
+                  <li><a id="NM" onclick="closeNav()">Carlsbad Caverns National Park</a></li>
+                </ul>
+            <li><a><img src="drapeaux/New York.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />New York</a>
+              <ul class="submenu">
+                <li><a id="NY" onclick="closeNav()">Statue of Liberty</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Caroline du Nord.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />North Carolina</a>
+              <ul class="submenu">
+                <li><a id="NC" onclick="closeNav()">Wright Brothers National Memorial</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Dakota du Nord.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />North Dakota</a>
+                <ul class="submenu">
+                  <li><a id="ND" onclick="closeNav()">Fort Union Trading Post</a></li>
+                </ul>
+            <li><a><img src="drapeaux/Ohio.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Ohio</a>
+              <ul class="submenu">
+                <li><a id="OH" onclick="closeNav()">Spring Grove Cemetery</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Oklahoma.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Oklahoma</a>
+              <ul class="submenu">
+                <li><a id="OK" onclick="closeNav()">The Platt Historic District</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Oregon.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Oregon</a>
+              <ul class="submenu">
+                <li><a id="OR" onclick="closeNav()">Columbia River Highway</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Pennsylvanie.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Pennsylvania</a>
+              <ul class="submenu">
+                <li><a id="PA" onclick="closeNav()">Liberty Bell</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Rhode Island.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Rhode Island</a>
+              <ul class="submenu">
+                <li><a id="RI" onclick="closeNav()">The Breakers</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Caroline du Sud.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />South Carolina</a>
+              <ul class="submenu">
+                <li><a id="SC" onclick="closeNav()">Fort Sumter National Monument</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Dakota du Sud.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />South Dakota</a>
+              <ul class="submenu">
+                <li><a id="SD" onclick="closeNav()">Mount Rushmore</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Tennessee.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Tennessee</a>
+              <ul class="submenu">
+                <li><a id="TN" onclick="closeNav()">Elvis Presley's Graceland</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Texas.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Texas</a>
+              <ul class="submenu">
+                <li><a id="TX" onclick="closeNav()">The Alamo</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Utah.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Utah</a>
+              <ul class="submenu">
+                <li><a id="UT" onclick="closeNav()">Bryce Canyon National Park</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Vermont.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Vermont</a>
+              <ul class="submenu">
+                <li><a id="VT" onclick="closeNav()">Shelburne Farms</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Virginie.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Virginia</a>
+              <ul class="submenu">
+                <li><a id="VA" onclick="closeNav()">Mount Vernon</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Washington.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Washington</a>
+              <ul class="submenu">
+                <li><a id="WA" onclick="closeNav()">Hanford Site</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Washington DC.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Washington D.C.</a>
+              <ul class="submenu">
+                <li><a id="WADC" onclick="closeNav()">White House</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Virginie Occidentale.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />West Virginia</a>
+              <ul class="submenu">
+                <li><a id="WV" onclick="closeNav()">Lost World Caverns</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Wisconsin.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Wisconsin</a>
+              <ul class="submenu">
+                <li><a id="WI" onclick="closeNav()">Taliesin</a></li>
+              </ul>
+            <li><a><img src="drapeaux/Wyoming.png" style="width: 50px; height: 35px; vertical-align:middle; padding:10px;" />Wyoming</a>
+              <ul class="submenu">
+                <li><a id="WY" onclick="closeNav()">Yellowstone National Park</a></li>
+              </ul>
+          </ul>
+        </nav>
+    </div>
+
+
+
+<!-- Coordonnées -->
+    <div class="main">
+      <div>
+        <button class="button" onclick="openNav()"><span style="writing-mode:tb-rl">Menu</span></button>
+      </div>
+      <div id="map" class="carte-interactive"></div>
+      <div id="coordonnees">Coordonnées: déplacez la souris sur la carte</div>
+        <div class="copyright">
+          2016 © Stenger
+        </div>
+    </div>
+    <!-- Help -->
+        <div class="help-tip">
+        	<p>This is the inline help tip! It can contain all kinds of HTML. Style it as you please.</p>
+        </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>

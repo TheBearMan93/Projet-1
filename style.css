@@ -1,0 +1,339 @@
+html, body {
+    overflow: hidden;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  padding: 0;
+  margin: 0;
+}
+
+
+.main {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.button{
+  color:white;
+  font-size: 20px;
+  cursor:pointer;
+  z-index: 1;
+  position:absolute;
+  left:0;
+  top:40%;
+  background-color:black;
+  border:none;
+  padding:20px 10px;
+  display: inline-block;
+  text-align: center;
+
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+  text-align: center;
+}
+
+.button span:after {
+  content: '►';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+  top:16px;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.carte-interactive {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #999;
+  border: 1px solid #666;
+  z-index: 0;
+}
+
+.copyright {
+  position: absolute;
+  bottom: 0;
+  right: 270px;
+  font-size: 8pt;
+  margin-bottom: 2px;
+}
+
+#coordonnees {
+  position: absolute;
+  left: 5px;
+  bottom: 0;
+  font-size: 11px;
+  margin-bottom: 2px;
+}
+
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    cursor:pointer;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+
+#mask {
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:9000;
+  background-color:#000;
+  display:none;
+}
+#boxes .window {
+  position:absolute;
+  left:0;
+  top:0;
+  width:440px;
+  height:200px;
+  display:none;
+  z-index:9999;
+  padding:20px;
+  overflow: auto;
+}
+#boxes #dialog {
+  width:375px;
+  height:250px;
+  padding:10px;
+  background-color:#FDF3E7;
+  font-size: 18px;
+
+}
+
+.window::-webkit-scrollbar {
+    display: none;
+}
+
+.close{
+  text-decoration: none;
+  color: black;
+}
+
+/* reset our lists to remove bullet points and padding */
+.mainmenu, .submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* make ALL links (main and submenu) have padding and background color */
+.mainmenu a {
+  display: block;
+  text-decoration: none;
+  padding: 10px;
+  color: white;
+}
+
+/* add hover behaviour */
+.mainmenu a:hover {
+    background-color: #C5C5C5;
+}
+/* when hovering over a .mainmenu item,
+  display the submenu inside it.
+  we're changing the submenu's max-height from 0 to 200px;
+*/
+.mainmenu li:hover .submenu {
+  display: block;
+  max-height: 200px;
+}
+
+
+/* hover behaviour for links inside .submenu */
+.submenu a:hover {
+  background-color: #666;
+}
+
+/* this is the initial state of all submenus.
+  we set it to max-height: 0, and hide the overflowed content.
+*/
+.submenu {
+  overflow: hidden;
+  max-height: 0;
+  -webkit-transition: all 0.5s ease-out;
+}
+
+/* --- Boutton d'aide --- */
+.help-tip{
+	position: absolute;
+	top: 75px;
+	right: 15px;
+	text-align: center;
+	background-color: red;
+	border-radius: 50%;
+	width: 24px;
+	height: 24px;
+	font-size: 14px;
+	line-height: 26px;
+	cursor: pointer;
+  z-index: 1;
+}
+.help-tip:before{
+	content:'?';
+	font-weight: bold;
+	color:#fff;
+}
+.help-tip:hover p{
+	display:block;
+	transform-origin: 100% 0%;
+
+	-webkit-animation: fadeIn 0.3s ease-in-out;
+	animation: fadeIn 0.3s ease-in-out;
+
+}
+/* Bouton */
+.help-tip p{
+	display: none;
+	text-align: left;
+	background-color: #1E2021;
+	padding: 20px;
+	width: 300px;
+	position: absolute;
+	border-radius: 3px;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+	right: -4px;
+	color: #FFF;
+	font-size: 13px;
+	line-height: 1.4;
+}
+/* Petite flêche */
+.help-tip p:before{
+	position: absolute;
+	content: '';
+	width:0;
+	height: 0;
+	border:6px solid transparent;
+	border-bottom-color:#1E2021;
+	right:10px;
+	top:-12px;
+}
+
+/* Animation CSS */
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity:0;
+		transform: scale(0.6);
+	}
+
+	100% {
+		opacity:100%;
+		transform: scale(1);
+	}
+}
+
+@keyframes fadeIn {
+	0% { opacity:0; }
+	100% { opacity:100%; }
+}
+
+.custom .leaflet-popup-tip,
+.custom .leaflet-popup-content-wrapper {
+    background: white;
+    color: black;
+    overflow: hidden;
+}
+
+.custom .leaflet-popup-content-wrapper img {
+    height:200px;
+    width:100%;
+    margin-bottom: 5px;
+    margin-top:5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+
+.custom .leaflet-popup-content-wrapper b {
+  font-size:20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.custom .leaflet-popup-content-wrapper a:link,
+.custom .leaflet-popup-content-wrapper a:visited {
+    background-color: #0027EC;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width:300px;
+    overflow: hidden;
+}
+.custom .leaflet-popup-content-wrapper a:hover,
+.custom .leaflet-popup-content-wrapper a:active {
+    background-color: #001BA1;
+    overflow: hidden;
+}
+
+.custom .leaflet-popup-content::-webkit-scrollbar {
+    display: none;
+}
+
+.leaflet-control-container{
+  display: block;
+  background-image: url("images/satellite.jpg");
+}
